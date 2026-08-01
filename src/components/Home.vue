@@ -13,7 +13,7 @@
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 text-center">
           <img :src="picture" />
         </div>
-        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12 pt-5">
+        <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
           <span
             class="home-title"
             :class="{ pgray: !nightMode, 'text-light': nightMode }"
@@ -113,7 +113,6 @@ export default {
 
 img {
   max-width: 300px;
-  margin-top: 60px;
   transform: rotateY(180deg);
 }
 

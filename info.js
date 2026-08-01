@@ -1,7 +1,7 @@
 let info = {
   name: "Naman Saxena",
   logo_name: "Naman",
-  flat_picture: require("./src/assets/potrait.jpg"),
+  flat_picture: require("./src/assets/naman_profile.jpg"),
   config: {
     use_cookies: true,
     navbar: {

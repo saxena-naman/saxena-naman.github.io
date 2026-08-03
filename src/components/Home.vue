@@ -14,10 +14,10 @@
           <img :src="picture" />
         </div>
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
-          <span
+          <h1
             class="home-title"
             :class="{ pgray: !nightMode, 'text-light': nightMode }"
-            >hello there!</span
+            >hello there!</h1
           >
           <div>
             <p v-html="description"></p>
@@ -39,17 +39,17 @@
             </button>
             <button
               class="btn btn-outline-secondary mx-2"
-              @click="open('angellist')"
-              v-tooltip.bottom="'AngelList'"
-            >
-              <i class="fab fa-angellist"></i>
-            </button>
-            <button
-              class="btn btn-outline-secondary mx-2"
               @click="open('resume')"
               v-tooltip.bottom="'Resume'"
             >
-              <i class="fa fa-file"></i>
+              <i class="fas fa-file"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary mx-2"
+              @click="open('email')"
+              v-tooltip.bottom="'Email'"
+            >
+              <i class="fas fa-envelope"></i>
             </button>
           </div>
         </div>
@@ -80,8 +80,8 @@ export default {
       name: info.name,
       linkedin: info.links.linkedin,
       github: info.links.github,
-      angellist: info.links.angellist,
-      resume: info.links.resume
+      resume: info.links.resume,
+      email: info.links.email
     };
   },
   methods: {
@@ -93,11 +93,11 @@ export default {
         case "github":
           window.open(this.github, "_blank");
           break;
-        case "angellist":
-          window.open(this.angellist, "_blank");
-          break;
         case "resume":
           window.open(this.resume, "_blank");
+          break;
+        case "email":
+          window.location.href = `mailto:${this.email}`;
           break;
       }
     },
@@ -107,6 +107,8 @@ export default {
 
 <style scoped>
 .home-title {
+  display: block;
+  margin: 0;
   font-size: 28px;
   font-weight: 500;
 }
@@ -128,7 +130,8 @@ img {
   }
 }
 
-.fa {
+.fab,
+.fas {
   font-size: 15px;
 }
 
@@ -154,7 +157,7 @@ img {
 }
 
 p {
-  text-align: justify;
+  text-align: left;
   font-weight: 400;
 }
 

@@ -62,6 +62,24 @@
             <li class="nav-item mx-2">
               <a
                 class="nav-link"
+                href="/achievements"
+                @click.prevent="$emit('scroll', 'achievements')"
+                :class="{ 'text-light': nightMode }"
+                >achievements</a
+              >
+            </li>
+            <li class="nav-item mx-2">
+              <a
+                class="nav-link"
+                href="/service"
+                @click.prevent="$emit('scroll', 'service')"
+                :class="{ 'text-light': nightMode }"
+                >service</a
+              >
+            </li>
+            <li class="nav-item mx-2">
+              <a
+                class="nav-link"
                 href="/contact"
                 @click.prevent="$emit('scroll', 'contact')"
                 :class="{ 'text-light': nightMode }"

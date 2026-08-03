@@ -14,10 +14,10 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
+        <h2
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >contact.</span
+          >contact.</h2
         >
       </div>
       <hr
@@ -113,7 +113,7 @@
 
 <script>
 import config from "../../config";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 import Snackbar from "./helpers/Snackbar";
 
@@ -148,7 +148,7 @@ export default {
     sendEmail() {
       if (!this.email || !this.name || !this.text) {
         this.showSnackbar = true;
-        this.snackbarMessage = "Please all the fields";
+        this.snackbarMessage = "Please fill in all the fields";
         this.snackbarColor = "rgb(212, 149, 97)";
       } else {
         var obj = {
@@ -189,6 +189,8 @@ export default {
 
 <style scoped>
 .title {
+  display: block;
+  margin: 0;
   font-size: 30px;
   font-weight: 500;
 }

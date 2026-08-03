@@ -47,7 +47,7 @@
               >
             </div>
 
-            <div style="text-align: justify;">
+            <div style="text-align: left;">
               <span v-html="portfolio.description"></span>
             </div>
             <hr />
@@ -73,13 +73,11 @@
 </template>
 
 <script>
-import Carousel from "./Carousel";
 import Gallery from "./Gallery";
 
 export default {
   name: "Modal",
   components: {
-    Carousel,
     Gallery,
   },
   props: {

@@ -6,7 +6,7 @@
           class="col-xl-6 col-bg-6 col-md-6 col-sm-12 pbelow"
           style="color: white;"
         >
-          <span>© 2026 Copyright: Naman Saxena</span>
+          <span>© {{ year }} Copyright: Naman Saxena</span>
         </div>
 
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
@@ -25,15 +25,15 @@
             </button>
             <button
               class="btn btn-outline-secondary mx-2"
-              @click="open('angellist')"
+              @click="open('resume')"
             >
-              <i class="fab fa-angellist"></i>
+              <i class="fas fa-file"></i>
             </button>
             <button
               class="btn btn-outline-secondary mx-2"
-              @click="open('resume')"
+              @click="open('email')"
             >
-              <i class="fa fa-file"></i>
+              <i class="fas fa-envelope"></i>
             </button>
           </div>
         </div>
@@ -51,8 +51,9 @@ export default {
     return {
       linkedin: info.links.linkedin,
       github: info.links.github,
-      angellist: info.links.angellist,
       resume: info.links.resume,
+      email: info.links.email,
+      year: new Date().getFullYear(),
     };
   },
   methods: {
@@ -64,11 +65,11 @@ export default {
         case "github":
           window.open(this.github, "_blank");
           break;
-        case "angellist":
-          window.open(this.angellist, "_blank");
-          break;
         case "resume":
           window.open(this.resume, "_blank");
+          break;
+        case "email":
+          window.location.href = `mailto:${this.email}`;
           break;
       }
     },

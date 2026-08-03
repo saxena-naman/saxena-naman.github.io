@@ -7,10 +7,10 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
+        <h2
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >skills.</span
+          >skills.</h2
         >
       </div>
       <hr
@@ -65,6 +65,8 @@ export default {
 
 <style scoped>
 .title {
+  display: block;
+  margin: 0;
   font-size: 30px;
   font-weight: 500;
 }
@@ -83,16 +85,9 @@ export default {
   font-weight: 400;
 }
 
-.fa {
-  color: rgb(212, 149, 97);
-  font-size: 40px;
-  transition: all 0.5s;
-}
-
 .fas {
   color: rgb(212, 149, 97);
   font-size: 40px;
-  /* font-weight: bold; */
   transition: all 0.5s;
 }
 </style>

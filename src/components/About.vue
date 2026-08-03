@@ -14,10 +14,10 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
+        <h2
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >about me.</span
+          >about me.</h2
         >
       </div>
       <hr
@@ -27,6 +27,7 @@
       <div class="row">
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
           <Timeline :data="education" :nightMode="nightMode" />
+          <Timeline :data="research_experience" :nightMode="nightMode" />
         </div>
         <div class="col-xl-6 col-bg-6 col-md-6 col-sm-12">
           <Timeline :data="experience" :nightMode="nightMode" />
@@ -60,6 +61,10 @@ export default {
         title: "experiences",
         data: info.experience,
       },
+      research_experience: {
+        title: "research experience",
+        data: info.research_experience,
+      },
     };
   },
 };
@@ -67,6 +72,8 @@ export default {
 
 <style scoped>
 .title {
+  display: block;
+  margin: 0;
   font-size: 30px;
   font-weight: 500;
 }

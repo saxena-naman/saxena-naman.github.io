@@ -7,10 +7,10 @@
         data-aos-once="true"
         data-aos-duration="1000"
       >
-        <span
+        <h2
           class="title text-center"
           :class="{ pgray: !nightMode, 'text-light': nightMode }"
-          >recommendations.</span
+          >achievements &amp; awards.</h2
         >
       </div>
       <hr
@@ -21,28 +21,26 @@
         <div
           class="col-xl-6 col-bg-6 col-md-6 col-sm-12 py-3 px-5"
           v-for="d in data"
-          :key="d.author"
+          :key="d.issuer + d.year"
         >
           <div
-            class="title2"
+            class="d-flex align-items-start"
             data-aos="fade-up"
             data-aos-once="true"
             data-aos-easing="ease-in-out"
             data-aos-mirror="true"
           >
-            <span>"{{ d.title }}"</span>
-          </div>
-          <div
-            class="title3 float-right py-2 pl-5"
-            data-aos="fade-up"
-            data-aos-once="true"
-            data-aos-easing="ease-in-out"
-            data-aos-mirror="true"
-          >
-            <span>
-              – {{ d.author }}, {{ d.position }}, {{ d.company }},
-              {{ d.location }}</span
-            >
+            <i
+              class="fas fa-trophy mt-1 mr-3"
+              :class="{ pgray: !nightMode, 'text-light': nightMode }"
+            ></i>
+            <div>
+              <div class="title2">
+                {{ d.issuer }} — {{ d.type }}, {{ d.year
+                }}{{ d.location ? `, ${d.location}` : "" }}
+              </div>
+              <div class="title3 mt-1">{{ d.description }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -54,7 +52,7 @@
 import info from "../../info";
 
 export default {
-  name: "Recommendation",
+  name: "Achievements",
   props: {
     nightMode: {
       type: Boolean,
@@ -62,7 +60,7 @@ export default {
   },
   data() {
     return {
-      data: info.recommendations,
+      data: info.achievements,
     };
   },
 };
@@ -70,25 +68,26 @@ export default {
 
 <style scoped>
 .title {
+  display: block;
+  margin: 0;
   font-size: 30px;
   font-weight: 500;
-}
-.title1 {
-  font-size: 24px;
-  font-weight: 400;
 }
 
 .title2 {
   font-size: 18px;
-  font-weight: 400;
-  font-style: italic;
-  text-align: justify;
+  font-weight: 500;
 }
 
 .title3 {
-  opacity: 0.7;
-  font-size: 16px;
+  opacity: 0.85;
+  font-size: 15px;
   font-weight: 400;
-  text-align: right;
+  text-align: left;
+}
+
+.fa-trophy {
+  font-size: 20px;
+  opacity: 0.8;
 }
 </style>

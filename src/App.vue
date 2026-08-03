@@ -6,7 +6,8 @@
       <About id="about" :nightMode="nightMode" />
       <Skills id="skills" :nightMode="nightMode" />
       <Portfolio id="portfolio" :nightMode="nightMode" />
-      <Recommendation :nightMode="nightMode" />
+      <Achievements id="achievements" :nightMode="nightMode" />
+      <ProfessionalService id="service" :nightMode="nightMode" />
       <Contact id="contact" :nightMode="nightMode" />
       <Footer :nightMode="nightMode" />
     </div>
@@ -14,16 +15,28 @@
 </template>
 
 <script>
+import AOS from "aos";
 import Navbar from "./components/Navbar.vue";
 import Home from "./components/Home";
 import About from "./components/About";
 import Skills from "./components/Skills";
 import Portfolio from "./components/Portfolio";
-import Recommendation from "./components/Recommendation";
+import Achievements from "./components/Achievements";
+import ProfessionalService from "./components/ProfessionalService";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 import info from "../info";
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+  return match ? match[2] : null;
+}
+
+function setCookie(name, value, days = 365) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = `${name}=${value}; expires=${expires}; path=/`;
+}
 
 export default {
   name: "App",
@@ -33,7 +46,8 @@ export default {
     About,
     Skills,
     Portfolio,
-    Recommendation,
+    Achievements,
+    ProfessionalService,
     Contact,
     Footer,
   },
@@ -45,11 +59,12 @@ export default {
   },
   created() {
     if (this.config.use_cookies) {
-      this.nightMode = this.$cookie.get("nightMode") === "true" ? true : false;
+      this.nightMode = getCookie("nightMode") === "true";
     }
   },
   mounted() {
-    ["about", "contact", "skills", "portfolio"].forEach((l) => {
+    AOS.init();
+    ["about", "contact", "skills", "portfolio", "achievements", "service"].forEach((l) => {
       if (window.location.href.includes(l)) {
         var elementPosition = document.getElementById(l).offsetTop;
         window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
@@ -59,7 +74,7 @@ export default {
   methods: {
     switchMode(mode) {
       if (this.config.use_cookies) {
-        this.$cookie.set("nightMode", mode);
+        setCookie("nightMode", mode);
       }
       this.nightMode = mode;
     },
@@ -70,8 +85,7 @@ export default {
       } else {
         var elementPosition = document.getElementById(ele).offsetTop;
         window.scrollTo({ top: elementPosition - 35, behavior: "smooth" });
-        if (this.$router.history.current.path !== `/${ele}`)
-          this.$router.push(`/${ele}`);
+        if (this.$route.path !== `/${ele}`) this.$router.push(`/${ele}`);
       }
     },
   },
@@ -143,110 +157,19 @@ export default {
   background: #555;
 }
 
-.tooltip {
-  display: block !important;
-  z-index: 10000;
+/* floating-vue's default 'tooltip' theme, recolored to match the site's
+   accent color. Base positioning/arrow geometry comes from
+   floating-vue/dist/style.css, imported in main.js. !important guards
+   against floating-vue's own default-theme rule winning on injection
+   order, since both selectors have identical specificity. */
+.v-popper--theme-tooltip .v-popper__inner {
+  background: rgb(212, 149, 97) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  font-size: 10px !important;
 }
 
-.tooltip .tooltip-inner {
-  background: rgb(212, 149, 97);
-  color: white;
-  border-radius: 8px;
-  font-size: 10px;
-  /* padding: 5px 10px 4px; */
-}
-
-.tooltip .tooltip-arrow {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  position: absolute;
-  margin: 5px;
-  border-color: rgb(212, 149, 97);
-  z-index: 1;
-}
-
-.tooltip[x-placement^="top"] {
-  margin-bottom: 5px;
-}
-
-.tooltip[x-placement^="top"] .tooltip-arrow {
-  border-width: 5px 5px 0 5px;
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  bottom: -5px;
-  left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.tooltip[x-placement^="bottom"] {
-  margin-top: 10px;
-}
-
-.tooltip[x-placement^="bottom"] .tooltip-arrow {
-  border-width: 0 5px 5px 5px;
-  border-left-color: transparent !important;
-  border-right-color: transparent !important;
-  border-top-color: transparent !important;
-  top: -5px;
-  left: calc(50% - 5px);
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.tooltip[x-placement^="right"] {
-  margin-left: 5px;
-}
-
-.tooltip[x-placement^="right"] .tooltip-arrow {
-  border-width: 5px 5px 5px 0;
-  border-left-color: transparent !important;
-  border-top-color: transparent !important;
-  border-bottom-color: transparent !important;
-  left: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.tooltip[x-placement^="left"] {
-  margin-right: 5px;
-}
-
-.tooltip[x-placement^="left"] .tooltip-arrow {
-  border-width: 5px 0 5px 5px;
-  border-top-color: transparent !important;
-  border-right-color: transparent !important;
-  border-bottom-color: transparent !important;
-  right: -5px;
-  top: calc(50% - 5px);
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.tooltip.popover .popover-inner {
-  background: #f9f9f9;
-  color: black;
-  padding: 24px;
-  border-radius: 5px;
-  box-shadow: 0 5px 30px rgba(black, 0.1);
-}
-
-.tooltip.popover .popover-arrow {
-  border-color: #f9f9f9;
-}
-
-.tooltip[aria-hidden="true"] {
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.5s, visibility 0.5s;
-}
-
-.tooltip[aria-hidden="false"] {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 0.5s;
+.v-popper--theme-tooltip .v-popper__arrow-outer {
+  border-color: rgb(212, 149, 97) !important;
 }
 </style>
